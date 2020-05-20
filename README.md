@@ -40,3 +40,10 @@ Start Express Server
 ```sh
 npm start
 ```
+## CRUD Operations
+| HTTP Verb |           Endpoint          |            Action            |
+|-----------| --------------------------- | ---------------------------- |
+| **POST**  |   /carousel/:gameId         |  CREATE a new item into DB   |
+| **GET**   |   /carousel/:gameId         |  READ data and return data   |
+| **PUT**   |   /carousel/:gameId         |  UPDATE item                 |
+| **DELETE**|   /carousel/:gameId         |  DELETE item based on ID     |
