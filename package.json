@@ -8,7 +8,7 @@
     "start:dev": "nodemon server/server.js --ignore 'client/' --ignore 'public/'",
     "start": "node server/server.js",
     "build": "webpack",
-    "seed": "node database/seed.js"
+    "seed": "bash database/seed.sh"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
   "homepage": "https://github.com/Team-Aragorn/Carousel-Images#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "cassandra": "^0.1.0",
+    "csv-write-stream": "^2.0.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "mongodb": "^3.5.7",
