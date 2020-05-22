@@ -5,11 +5,11 @@ CREATE KEYSPACE carousel WITH replication = {'class':'SimpleStrategy', 'replicat
 USE carousel;
 
 CREATE TABLE imageData (
-    id UUID PRIMARY KEY,
-    gameTitle text,
-    newPrice Decimal,
-    preOwnedPrice Decimal,
-    digitalPrice Decimal,
-    mainImage text,
+    id int PRIMARY KEY,
+    game_title text,
+    new_price float,
+    preowned_price float,
+    digital_price float,
+    main_image text,
     images list<text>
 );
