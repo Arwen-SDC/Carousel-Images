@@ -1,12 +1,11 @@
 /* eslint-disable no-plusplus */
-const mongoose = require('mongoose');
 const faker = require('faker');
+var assert = require('assert');
+var cassandra = require('cassandra-driver');
+var authProvider = new cassandra.auth.PlainTextAuthProvider('root');
+var contactPoints = ['127.0.0.1'];
+var client = new cassandra.Client({contactPoints: contactPoints, authProvider: authProvider, keyspace:'carousel'});
 
-mongoose.connect('mongodb://localhost/imagesData', { useNewUrlParser: true, useUnifiedTopology: true });
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', () => {
   const imageDataSchema = new mongoose.Schema({
@@ -22,14 +21,14 @@ db.once('open', () => {
 
   const randomMainImage = () => {
     const random = Math.floor(Math.random() * Math.floor(17) + 1);
-    return `https://better-game-start.s3.us-east-2.amazonaws.com/Recommended+Carousel+Images/${random}-170x170.jpg`;
+    return `https://shmetsy.s3.us-east-2.amazonaws.com/${random}-170x170.jpg`;
   };
 
   const randomImages = () => {
     const result = [];
     for (let i = 0; i < 5; i++) {
       const random = Math.floor(Math.random() * Math.floor(29) + 1);
-      result.push(`https://better-game-start.s3.us-east-2.amazonaws.com/Zoom+Carousel+Images/${random}-370x370.jpg`);
+      result.push(`https://shmetsy.s3.us-east-2.amazonaws.com/${random}-370x370.jpg`);
     }
     return result;
   };
@@ -48,6 +47,14 @@ db.once('open', () => {
       allData.push(data);
     }
     return allData;
+    var query = 'INSERT INTO imageData (';
+    var q1 = execute(query, ['oranges'], (err, result) => { assert.ifError(err); console.log('The cost per orange is $' + result.rows[0].price_p_item)});
+    var q2 = execute(query, ['pineapples'], (err,result) => { assert.ifError(err); console.log('The cost per pineapple is $' + result.rows[0].price_p_item)});
+    var q3 = execute(query, ['apples'], (err,result) => { assert.ifError(err); console.log('The cost per apple is $' + result.rows[0].price_p_item)});
+    Promise.all([q1,q2,q3]).then(() => {
+      console.log('exit');
+      process.exit();
+});
   };
 
   ImageData.deleteMany({}, (err) => {
