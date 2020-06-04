@@ -8,7 +8,9 @@
     "start:dev": "nodemon server/server.js --ignore 'client/' --ignore 'public/'",
     "start": "node server/server.js",
     "build": "webpack",
-    "seed": "bash database/seed.sh"
+    "cass": "bash database/Cassandra/seed.sh",
+    "post": "bash database/PostgreSQL/seed.sh",
+    "art": "artillery run artillery.yml"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "faker": "^4.1.0",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.11",
+    "newrelic": "^6.8.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

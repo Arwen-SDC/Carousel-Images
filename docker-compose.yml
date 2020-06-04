@@ -1,0 +1,28 @@
+ca2556a on Jul 31, 2018
+28 lines (25 sloc)  447 Bytes
+
+version: '2'
+services:
+  express:
+      image: mta630/sdcweb:1.0
+      depends_on:
+        - cassandra
+      environment:
+        - NODE_ENV=production
+      ports:
+        - "3003:3003"
+      links:
+        - cassandra
+      networks:
+        - service
+      command: node index.js
+  cassandra:
+      image: cassandra
+      ports:
+        - "9042:9042"
+      networks:
+        - service
+      restart: always
+networks:
+  service:
+    driver: "bridge"

@@ -1,3 +1,5 @@
 node_modules
 public/bundle.js
-data.csv
+database/data.csv
+database/data2.csv
+database/key.js

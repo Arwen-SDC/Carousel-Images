@@ -1,0 +1,36 @@
+config:
+  target: "http://localhost:3003"
+  processor: "./testGen.js"
+  phases:
+    - duration: 10
+      arrivalRate: 1
+      maxVusers: 1
+      name: "warmup"
+    - pause: 30
+    - duration: 60
+      arrivalRate: 10
+      maxVusers: 10
+      name: "10 users"
+    - pause: 30
+    - duration: 60
+      arrivalRate: 100
+      maxVusers: 100
+      name: "100 users"
+    - pause: 30
+    - duration: 60
+      arrivalRate: 1000
+      maxVusers: 1000
+      name: "1000 users"
+scenarios:
+- name: "Testing GET REQ"
+  weight: 100
+  flow:
+  - function: "rng"
+  - get:
+      url: "/carousel/{{id}}"
+- name: "Testing POST REQ"
+  weight: 10
+  flow:
+  - function: "rng"
+  - post:
+      url: "/carousel/{{id}}"
